@@ -32,6 +32,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+
+#include "../user/init.h"
+#include "../user/loop.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -105,24 +108,18 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USB_HOST_Init();
   /* USER CODE BEGIN 2 */
-
+  init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  printf("\n\nSTM32F412Discovery: Hello, World!\n");
-  printf("Alive");
-  fflush(stdout);
-
   while (1)
   {
-	  printf(".");
-	  fflush(stdout);
 	  /* USER CODE END WHILE */
 	  MX_USB_HOST_Process();
 
 	  /* USER CODE BEGIN 3 */
-	  HAL_Delay(1000);
+	  loop();
   }
   /* USER CODE END 3 */
 }
