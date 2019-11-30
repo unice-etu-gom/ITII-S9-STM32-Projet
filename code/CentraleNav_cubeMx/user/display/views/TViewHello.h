@@ -1,24 +1,22 @@
-#include "loop.h"
+#ifndef TVIEWHELLO_H
+#define TVIEWHELLO_H
 
-#include <stdio.h>
+/* Inherited classes */
 
-#include "stm32412g_discovery.h"
-#include "stm32f4xx_hal.h"
+/* System includes */
 
-#include "display/display_management.h"
+/* Libraries includes */
+
+/* Project includes */
+#include "../TsDisplayView.h"
+
+
+/* ########################################################################## */
+/* ########################################################################## */
+
+extern const TsDisplayView  c_view_hello;
 
 /* ########################################################################## */
 /* ########################################################################## */
 
-void    loop(void)
-{
-    printf(".");
-    fflush(stdout);
-    BSP_LED_Toggle(LED_GREEN);
-
-    HAL_Delay(1000);
-    display_repaint();
-}
-
-/* ########################################################################## */
-/* ########################################################################## */
+#endif  /*< TVIEWHELLO_H */
