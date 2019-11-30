@@ -24,6 +24,7 @@
 #include "i2s.h"
 #include "quadspi.h"
 #include "sdio.h"
+#include "tim.h"
 #include "usart.h"
 #include "usb_host.h"
 #include "gpio.h"
@@ -107,6 +108,9 @@ int main(void)
   MX_SDIO_SD_Init();
   MX_USART2_UART_Init();
   MX_USB_HOST_Init();
+  MX_TIM12_Init();
+  MX_TIM11_Init();
+  MX_TIM13_Init();
   /* USER CODE BEGIN 2 */
   init();
   /* USER CODE END 2 */
@@ -115,10 +119,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  /* USER CODE END WHILE */
-	  MX_USB_HOST_Process();
+    /* USER CODE END WHILE */
+    MX_USB_HOST_Process();
 
-	  /* USER CODE BEGIN 3 */
+    /* USER CODE BEGIN 3 */
 	  loop();
   }
   /* USER CODE END 3 */

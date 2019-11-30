@@ -5,6 +5,8 @@
 #include "stm32412g_discovery.h"
 #include "stm32412g_discovery_lcd.h"
 
+#include "tim.h"
+
 #include "display/display_management.h"
 #include "display/views/TViewHello.h"
 #include "display/views/TViewMain.h"
@@ -15,10 +17,12 @@
 void    init_LED(void);
 void    init_LCD(void);
 
+void    start(void);
+
 /* ########################################################################## */
 /* ########################################################################## */
 
-void	init(void)
+void    init(void)
 {
     /*
      *  Initialize modules
@@ -34,11 +38,7 @@ void	init(void)
      */
     HAL_Delay(1000);
 
-    printf("Alive");
-    fflush(stdout);
-
-    BSP_LED_Off(LED_GREEN);
-    display_setView(&c_view_main);
+    start();
 }
 
 /* ########################################################################## */
@@ -53,7 +53,10 @@ void    init_LED(void)
     BSP_LED_Init(LED_ORANGE);
     BSP_LED_Init(LED_GREEN);
 
+    BSP_LED_On(LED_BLUE);
     BSP_LED_On(LED_GREEN);
+    BSP_LED_On(LED_ORANGE);
+    BSP_LED_On(LED_RED);
 }
 
 /* ########################################################################## */
@@ -73,6 +76,32 @@ void    init_LCD(void)
     BSP_LCD_DisplayStringAtLine(5, (uint8_t*)"Hello, World!");
 
     display_setView(&c_view_hello);
+}
+
+/* ########################################################################## */
+/* ########################################################################## */
+
+void    start(void)
+{
+    printf("Alive");
+    fflush(stdout);
+
+
+    /* Clear LEDs */
+    BSP_LED_Off(LED_BLUE);
+    BSP_LED_Off(LED_GREEN);
+    BSP_LED_Off(LED_ORANGE);
+    BSP_LED_Off(LED_RED);
+
+
+    /* Display the main screen */
+    display_setView(&c_view_main);
+
+
+    /* Start time base timers */
+    HAL_TIM_Base_Start_IT(&htim11);
+    HAL_TIM_Base_Start_IT(&htim12);
+    HAL_TIM_Base_Start_IT(&htim13);
 }
 
 /* ########################################################################## */
