@@ -10,6 +10,8 @@
 #include "stm32412g_discovery_ts.h"
 
 /* Project includes */
+#include "../common/ui_button.h"
+#include "../common/ui_buttons.h"
 
 
 static int s_main_value	= 0;
@@ -25,8 +27,12 @@ void    viewMain_draw(void)
     char	lBuffer[10]= {0};
     itoa(s_main_value++, lBuffer, 10);
 
-    BSP_LCD_DisplayStringAtLine(1, (uint8_t*)"Number of redraws:");
+    BSP_LCD_DisplayStringAtLine(1, (uint8_t*)"Nbr of redraws:");
     BSP_LCD_DisplayStringAtLine(2, (uint8_t*)lBuffer);
+
+
+    ui_button_draw(&g_buttonArrowNext);
+    ui_button_draw(&g_buttonArrowPrevious);
 }
 
 /* ########################################################################## */
@@ -48,26 +54,19 @@ void    viewMain_Event_touchscreen(const TS_StateTypeDef* pTSState)
                 pTSState->touchY[0] );
     BSP_LCD_DisplayStringAtLine(5, lBuffer);
 
-    snprintf(   (char*)lBuffer,
-                32,
-                "X[1] = %04u",
-                pTSState->touchX[1] );
-    BSP_LCD_DisplayStringAtLine(6, lBuffer);
 
-    snprintf(   (char*)lBuffer,
-                32,
-                "Y[1] = %04u",
-                pTSState->touchY[1] );
-    BSP_LCD_DisplayStringAtLine(7, lBuffer);
-
-
-
-
-//    snprintf(   (char*)lBuffer,
-//                32,
-//                "gesture ID = %04u",
-//                pTSState->gestureId );
-//    BSP_LCD_DisplayStringAtLine(8, lBuffer);
+    if( ui_button_touchIsIn(&g_buttonArrowNext,pTSState) )
+    {
+        BSP_LCD_DisplayStringAtLine(6, "BTN Next");
+    }
+    else if( ui_button_touchIsIn(&g_buttonArrowPrevious, pTSState) )
+    {
+        BSP_LCD_DisplayStringAtLine(6, "BTN Previous");
+    }
+    else
+    {
+        BSP_LCD_DisplayStringAtLine(6, "No button.");
+    }
 }
 
 /* ########################################################################## */
@@ -76,6 +75,19 @@ void    viewMain_Event_touchscreen(const TS_StateTypeDef* pTSState)
 void    viewMain_handlerOnEnter(void)
 {
     BSP_LCD_Clear(LCD_COLOR_BLACK);
+    BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
+    BSP_LCD_SetTextColor(LCD_COLOR_ORANGE);
+
+
+    ui_button_setOrig(
+                &g_buttonArrowPrevious,
+                0,
+                240 - g_buttonArrowPrevious.sizeY );
+
+    ui_button_setOrig(
+                &g_buttonArrowNext,
+                240 - g_buttonArrowNext.sizeX,
+                240 - g_buttonArrowNext.sizeY );
 }
 
 /* ########################################################################## */
