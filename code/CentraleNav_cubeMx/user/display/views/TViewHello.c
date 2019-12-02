@@ -4,9 +4,10 @@
 /* System includes */
 
 /* Libraries includes */
+#include "stm32412g_discovery_lcd.h"
 
 /* Project includes */
-#include "stm32412g_discovery_lcd.h"
+#include "../images/ImageEcranAccueil.h"
 
 
 /* ########################################################################## */
@@ -14,8 +15,12 @@
 
 void    viewHello_draw(void)
 {
-    BSP_LCD_Clear(LCD_COLOR_LIGHTBLUE);
-    BSP_LCD_DisplayStringAtLine(1, (uint8_t*)__FUNCTION__);
+    BSP_LCD_DrawRGBImage(
+                0,
+                0,
+                ImageEcranAccueil.width,
+                ImageEcranAccueil.height,
+                ImageEcranAccueil.pixel_data );
 }
 
 /* ########################################################################## */
