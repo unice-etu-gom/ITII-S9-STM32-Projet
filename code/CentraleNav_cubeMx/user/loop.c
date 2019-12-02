@@ -15,6 +15,7 @@
 void	actions_period100ms(void)
 {
     BSP_LED_Toggle(LED_ORANGE);
+    display_touchscreen_poll();
 }
 
 /* ########################################################################## */
@@ -22,7 +23,9 @@ void	actions_period100ms(void)
 
 void	actions_period1000ms(void)
 {
+#if 0
     display_repaint();
+#endif
     printf(".");
     fflush(stdout);
     BSP_LED_Toggle(LED_GREEN);

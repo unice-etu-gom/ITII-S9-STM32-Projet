@@ -76,6 +76,42 @@ void    init_LCD(void)
     BSP_LCD_DisplayStringAtLine(5, (uint8_t*)"Hello, World!");
 
     display_setView(&c_view_hello);
+
+
+    /* touch screen */
+    uint8_t retTS
+            = BSP_TS_InitEx(
+                    BSP_LCD_GetXSize(),
+                    BSP_LCD_GetYSize(),
+                    LCD_ORIENTATION_PORTRAIT );
+
+    if( retTS != TS_OK )
+    {
+        while(1)
+        {
+            /* T */
+            BSP_LED_On(LED_RED);
+            HAL_Delay(500);
+            BSP_LED_Off(LED_RED);
+
+            HAL_Delay(500);
+
+            /* S */
+            BSP_LED_On(LED_RED);
+            HAL_Delay(250);
+            BSP_LED_Off(LED_RED);
+            HAL_Delay(250);
+            BSP_LED_On(LED_RED);
+            HAL_Delay(250);
+            BSP_LED_Off(LED_RED);
+            HAL_Delay(250);
+            BSP_LED_On(LED_RED);
+            HAL_Delay(250);
+            BSP_LED_Off(LED_RED);
+
+            HAL_Delay(1000);
+        }
+    }
 }
 
 /* ########################################################################## */

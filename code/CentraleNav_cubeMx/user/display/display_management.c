@@ -8,6 +8,8 @@
 
 #include <assert.h>
 
+#include "stm32412g_discovery_ts.h"
+
 
 /* ########################################################################## */
 /* ########################################################################## */
@@ -42,7 +44,7 @@ void    display_setView(const TsDisplayView *pViewPtr)
 
 
     if(     s_currentViewPtr != 0
-       &&   s_currentViewPtr->funcHandlerOnExit != 0    )
+        &&  s_currentViewPtr->funcHandlerOnExit != 0    )
     {
         (s_currentViewPtr->funcHandlerOnExit)();
     }
@@ -55,6 +57,26 @@ void    display_setView(const TsDisplayView *pViewPtr)
     }
 
     display_repaint();
+}
+
+/* ########################################################################## */
+/* ########################################################################## */
+
+void    display_touchscreen_poll(void)
+{
+    TS_StateTypeDef	lTS_State;
+
+    BSP_TS_GetState(&lTS_State);
+
+    if( lTS_State.touchDetected )
+    {
+        if(     s_currentViewPtr != 0
+            &&  s_currentViewPtr->funcEvent_touchscreen   != 0    )
+        {
+            (s_currentViewPtr->funcEvent_touchscreen)(
+                        ((const TS_StateTypeDef*)&lTS_State) );
+        }
+    }
 }
 
 /* ########################################################################## */
