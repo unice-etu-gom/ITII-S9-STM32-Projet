@@ -64,11 +64,14 @@ void    display_setView(const TsDisplayView *pViewPtr)
 
 void    display_touchscreen_poll(void)
 {
-    TS_StateTypeDef	lTS_State;
+    static uint8_t  s_touchDetectedPrevious = 0U;
 
+    TS_StateTypeDef	lTS_State;
     BSP_TS_GetState(&lTS_State);
 
-    if( lTS_State.touchDetected )
+
+    if(     s_touchDetectedPrevious == 0
+        &&  lTS_State.touchDetected != 0 )
     {
         if(     s_currentViewPtr != 0
             &&  s_currentViewPtr->funcEvent_touchscreen   != 0    )
@@ -77,6 +80,8 @@ void    display_touchscreen_poll(void)
                         ((const TS_StateTypeDef*)&lTS_State) );
         }
     }
+
+    s_touchDetectedPrevious = lTS_State.touchDetected;
 }
 
 /* ########################################################################## */
