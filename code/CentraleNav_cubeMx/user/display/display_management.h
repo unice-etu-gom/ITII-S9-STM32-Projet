@@ -14,6 +14,7 @@ void    display_setView(const TsDisplayView*    pViewPtr);
 
 void    display_repaint(void);
 
+void    display_periodicUiUpdate(void);
 void    display_touchscreen_poll(void);
 
 

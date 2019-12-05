@@ -14,6 +14,10 @@ typedef struct _SDisplayView
     void    (*funcHandlerOnEnter)(void);
     void    (*funcHandlerOnExit)(void);
 
+
+    void    (*funcPeriodicUiUpdate)(void);
+
+
     /*
      *  I/O Event handlers
      */
