@@ -19,7 +19,8 @@ void	actions_period100ms(void)
     BSP_LED_Toggle(LED_ORANGE);
     display_touchscreen_poll();
 
-    serial_transmit();
+    data_process();
+    serial_periodicAction100ms();
 }
 
 /* ########################################################################## */
@@ -29,7 +30,6 @@ void	actions_period1000ms(void)
 {
     BSP_LED_Toggle(LED_GREEN);
 
-    data_process();
 
     display_periodicUiUpdate();
 }
