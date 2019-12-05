@@ -5,7 +5,9 @@
 #include "stm32412g_discovery.h"
 #include "stm32f4xx_hal.h"
 
+#include "data/data_processing.h"
 #include "display/display_management.h"
+#include "comm/serial.h"
 
 #include "variables_globales.h"
 
@@ -16,6 +18,9 @@ void	actions_period100ms(void)
 {
     BSP_LED_Toggle(LED_ORANGE);
     display_touchscreen_poll();
+
+    data_process();
+    serial_periodicAction100ms();
 }
 
 /* ########################################################################## */
@@ -23,12 +28,8 @@ void	actions_period100ms(void)
 
 void	actions_period1000ms(void)
 {
-#if 0
-    display_repaint();
-#endif
-    printf(".");
-    fflush(stdout);
     BSP_LED_Toggle(LED_GREEN);
+
 
     display_periodicUiUpdate();
 }

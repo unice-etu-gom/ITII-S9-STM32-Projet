@@ -28,6 +28,8 @@ typedef struct _S3DimentionsInt
 
 extern volatile Ts3Dimentions   g_magnetometerValues;
 
+extern volatile double  g_magnetometerAngle;
+
 /* ########################################################################## */
 /* ########################################################################## */
 

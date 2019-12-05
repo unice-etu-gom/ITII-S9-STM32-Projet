@@ -2,7 +2,6 @@
 #include "TViewMagnetometer.h"
 
 /* System includes */
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -173,17 +172,10 @@ void    viewMagnetometer_PeriodicUiUpdate(void)
     /*
      *  Calculate and display angle
      */
-    volatile double  lAngle
-            = atan2( 10.0, 10.0 );
-    lAngle  *= 180.0;
-    lAngle  /= M_PI;
     snprintf(   lBuffer,
                 10,
-//                "%d", 42 );
-                  "%d deg",
-                  (int)lAngle );
-//                "%f deg",
-//                lAngle);
+                "%.01f deg",
+                g_magnetometerAngle );
 
     BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
     BSP_LCD_DisplayStringAtLine(9, (uint8_t*)"Angle__________________________");
