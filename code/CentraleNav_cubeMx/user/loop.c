@@ -29,6 +29,8 @@ void	actions_period1000ms(void)
     printf(".");
     fflush(stdout);
     BSP_LED_Toggle(LED_GREEN);
+
+    display_periodicUiUpdate();
 }
 
 /* ########################################################################## */

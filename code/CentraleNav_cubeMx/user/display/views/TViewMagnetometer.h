@@ -1,22 +1,22 @@
-/* Corresponding header inclusion */
-#include "variables_globales.h"
+#ifndef TVIEWMAGNETOMETER_H
+#define TVIEWMAGNETOMETER_H
+
+/* Inherited classes */
 
 /* System includes */
 
 /* Libraries includes */
 
 /* Project includes */
+#include "../TsDisplayView.h"
 
 
 /* ########################################################################## */
 /* ########################################################################## */
 
-volatile uint8_t g_flag_delayedActions_10ms     = 0;
-volatile uint8_t g_flag_delayedActions_100ms    = 0;
-volatile uint8_t g_flag_delayedActions_1000ms   = 0;
-
-
-volatile Ts3Dimentions   g_magnetometerValues   = {0};
+extern const TsDisplayView  c_view_magnetometer;
 
 /* ########################################################################## */
 /* ########################################################################## */
+
+#endif  /*< TVIEWMAGNETOMETER_H */

@@ -47,7 +47,11 @@ const TsDisplayView c_view_hello
         .funcDrawView   = viewHello_draw,
 
         .funcHandlerOnEnter = viewHello_handlerOnEnter,
-        .funcHandlerOnExit  = viewHello_handlerOnExit
+        .funcHandlerOnExit  = viewHello_handlerOnExit,
+
+        .funcPeriodicUiUpdate   = 0U,
+
+        .funcEvent_touchscreen  = 0U
     };
 
 /* ########################################################################## */

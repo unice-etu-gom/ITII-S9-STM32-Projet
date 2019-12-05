@@ -102,8 +102,8 @@ void    ui_button_setOrig(TsUiButton *pButtonPtr,
 /* ########################################################################## */
 
 uint8_t ui_button_touchIsIn(
-                TsUiButton*         pButton,
-                TS_StateTypeDef*    pTSStatePtr )
+                const TsUiButton*       pButton,
+                const TS_StateTypeDef*  pTSStatePtr )
 {
     uint8_t retval  = 0;
 

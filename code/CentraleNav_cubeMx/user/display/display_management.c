@@ -19,6 +19,18 @@ static const TsDisplayView*	s_currentViewPtr    = 0;
 /* ########################################################################## */
 /* ########################################################################## */
 
+void    display_periodicUiUpdate(void)
+{
+    if(     s_currentViewPtr != 0
+        &&  s_currentViewPtr->funcPeriodicUiUpdate != 0 )
+    {
+        (s_currentViewPtr->funcPeriodicUiUpdate)();
+    }
+}
+
+/* ########################################################################## */
+/* ########################################################################## */
+
 void    display_repaint(void)
 {
     if(     s_currentViewPtr != 0

@@ -10,8 +10,12 @@
 #include "stm32412g_discovery_ts.h"
 
 /* Project includes */
+#include "../display_management.h"
+
 #include "../common/ui_button.h"
 #include "../common/ui_buttons.h"
+
+#include "TViewMagnetometer.h"
 
 
 static int s_main_value	= 0;
@@ -57,15 +61,17 @@ void    viewMain_Event_touchscreen(const TS_StateTypeDef* pTSState)
 
     if( ui_button_touchIsIn(&g_buttonArrowNext,pTSState) )
     {
-        BSP_LCD_DisplayStringAtLine(6, "BTN Next");
+        display_setView(&c_view_magnetometer);
     }
     else if( ui_button_touchIsIn(&g_buttonArrowPrevious, pTSState) )
     {
-        BSP_LCD_DisplayStringAtLine(6, "BTN Previous");
+        display_setView(&c_view_magnetometer);
     }
     else
     {
-        BSP_LCD_DisplayStringAtLine(6, "No button.");
+        BSP_LCD_DisplayStringAtLine(
+                6,
+                (uint8_t*)"No button." );
     }
 }
 
@@ -107,7 +113,9 @@ const TsDisplayView c_view_main
         .funcHandlerOnEnter = viewMain_handlerOnEnter,
         .funcHandlerOnExit  = viewMain_handlerOnExit,
 
-        .funcEvent_touchscreen  = viewMain_Event_touchscreen
+        .funcEvent_touchscreen  = viewMain_Event_touchscreen,
+
+        .funcPeriodicUiUpdate   = 0U
     };
 
 /* ########################################################################## */
