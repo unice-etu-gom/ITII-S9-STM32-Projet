@@ -65,7 +65,9 @@ void    viewMain_Event_touchscreen(const TS_StateTypeDef* pTSState)
     }
     else
     {
-        BSP_LCD_DisplayStringAtLine(6, "No button.");
+        BSP_LCD_DisplayStringAtLine(
+                6,
+                (uint8_t*)"No button." );
     }
 }
 

@@ -27,7 +27,7 @@ typedef struct  _SUiButton
     uint16_t    colorBG;
     uint16_t    colorFG;
 
-    TsGimpImage*    imagePtr;
+    const TsGimpImage*  imagePtr;
 
 }   TsUiButton;
 
@@ -62,8 +62,8 @@ void    ui_button_setImage(
 
 
 uint8_t ui_button_touchIsIn(
-                TsUiButton*         pButton,
-                TS_StateTypeDef*    pTSStatePtr );
+                const TsUiButton*       pButton,
+                const TS_StateTypeDef*  pTSStatePtr );
 
 /* ########################################################################## */
 /* ########################################################################## */
