@@ -5,6 +5,7 @@
 #include "stm32412g_discovery.h"
 #include "stm32f4xx_hal.h"
 
+#include "data/data_processing.h"
 #include "display/display_management.h"
 
 #include "variables_globales.h"
@@ -29,6 +30,8 @@ void	actions_period1000ms(void)
     printf(".");
     fflush(stdout);
     BSP_LED_Toggle(LED_GREEN);
+
+    data_process();
 
     display_periodicUiUpdate();
 }
