@@ -7,6 +7,7 @@
 
 #include "data/data_processing.h"
 #include "display/display_management.h"
+#include "comm/serial.h"
 
 #include "variables_globales.h"
 
@@ -17,6 +18,8 @@ void	actions_period100ms(void)
 {
     BSP_LED_Toggle(LED_ORANGE);
     display_touchscreen_poll();
+
+    serial_transmit();
 }
 
 /* ########################################################################## */
@@ -24,11 +27,6 @@ void	actions_period100ms(void)
 
 void	actions_period1000ms(void)
 {
-#if 0
-    display_repaint();
-#endif
-    printf(".");
-    fflush(stdout);
     BSP_LED_Toggle(LED_GREEN);
 
     data_process();

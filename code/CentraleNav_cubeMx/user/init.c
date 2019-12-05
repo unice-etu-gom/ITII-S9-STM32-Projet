@@ -7,6 +7,7 @@
 
 #include "tim.h"
 
+#include "comm/serial.h"
 #include "display/display_management.h"
 #include "display/views/TViewHello.h"
 #include "display/views/TViewMain.h"
@@ -30,7 +31,7 @@ void    init(void)
     init_LED();
     init_LCD();
 
-    printf("\n\nSTM32F412Discovery: Hello, World!\n");
+    serial_init();
 
 
     /*
