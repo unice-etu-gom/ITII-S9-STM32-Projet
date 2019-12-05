@@ -15,5 +15,8 @@ volatile uint8_t g_flag_delayedActions_10ms     = 0;
 volatile uint8_t g_flag_delayedActions_100ms    = 0;
 volatile uint8_t g_flag_delayedActions_1000ms   = 0;
 
+
+volatile Ts3Dimentions   g_magnetometerValues   = {0};
+
 /* ########################################################################## */
 /* ########################################################################## */
