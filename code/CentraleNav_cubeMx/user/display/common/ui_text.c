@@ -15,9 +15,18 @@
 void    ui_text_draw(
                 const TsUiText  *pObj )
 {
+    BSP_LCD_SetTextColor(pObj->colorBG);
+
+    for( uint16_t lLine = pObj->Y ;
+         lLine < pObj->Y + pObj->font->Height ;
+         ++lLine )
+    {
+        BSP_LCD_DrawLine(0U,lLine, BSP_LCD_GetXSize(), lLine);
+    }
+
+
     BSP_LCD_SetBackColor(pObj->colorBG);
     BSP_LCD_SetTextColor(pObj->colorFG);
-
     BSP_LCD_SetFont(pObj->font);
 
     BSP_LCD_DisplayStringAt(
