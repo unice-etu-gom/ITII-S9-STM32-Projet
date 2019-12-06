@@ -32,7 +32,38 @@ void    ui_button_draw(
                     pButton->origY,
                     pButton->imagePtr->width,
                     pButton->imagePtr->height,
-                    pButton->imagePtr->pixel_data );
+                    (uint8_t*)pButton->imagePtr->pixel_data );
+    }
+
+
+    /* Draw the text */
+    if( pButton->text != 0 )
+    {
+        /* Get the text size */
+        uint8_t     *lTextPtr   = (uint8_t*)pButton->text;
+        uint32_t    lTextLength = 0U;
+        while (*lTextPtr++)
+        {
+            lTextLength++;
+        }
+
+
+        uint16_t    lPosX
+                = pButton->origX + (pButton->sizeX/2) /*< button center */
+                - ((lTextLength*BSP_LCD_GetFont()->Width) / 2);
+
+        uint16_t    lPosY
+                = pButton->origY + (pButton->sizeY/2) /*< button center */
+                - (BSP_LCD_GetFont()->Height / 2);
+
+
+        BSP_LCD_SetBackColor(pButton->colorBG);
+        BSP_LCD_SetTextColor(pButton->colorFG);
+        BSP_LCD_DisplayStringAt(
+                    lPosX,
+                    lPosY,
+                    (uint8_t*)pButton->text,
+                    LEFT_MODE );
     }
 }
 
@@ -55,6 +86,7 @@ void    ui_button_init(TsUiButton *pButtonPtr)
     pButtonPtr->sizeY   = 60U;
 
     pButtonPtr->imagePtr    = 0U;
+    pButtonPtr->text        = 0U;
 }
 
 /* ########################################################################## */

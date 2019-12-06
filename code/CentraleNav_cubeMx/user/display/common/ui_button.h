@@ -28,6 +28,7 @@ typedef struct  _SUiButton
     uint16_t    colorFG;
 
     const TsGimpImage*  imagePtr;
+    const uint8_t*      text;
 
 }   TsUiButton;
 
