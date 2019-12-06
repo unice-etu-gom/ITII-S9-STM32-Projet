@@ -19,15 +19,16 @@
  /* Includes ------------------------------------------------------------------*/
 #include "../../../Drivers/BSP/Components/Common/accelero.h"
 #include "../../../Drivers/BSP/Components/Common/magneto.h"
-
+#include "../../../Inc/i2c.h"
+#include <stdint.h>
  /******************************************************************************/
  /*************************** START REGISTER MAPPING  **************************/
  /******************************************************************************/
  /* Exported constant IO ------------------------------------------------------*/
-#define ACC_I2C_ADDRESS_W                    0x32
-#define ACC_I2C_ADDRESS_R                    0x33
-#define MAG_I2C_ADDRESS_W                    0x3C
-#define MAG_I2C_ADDRESS_R                    0x3D
+#define LSM303AGR_ACC_I2C_ADDRESS_W                    0x32
+#define LSM303AGR_ACC_I2C_ADDRESS_R                    0x33
+#define LSM303AGR_MAG_I2C_ADDRESS_W                    0x3C
+#define LSM303AGR_MAG_I2C_ADDRESS_R                    0x3D
 
  /* Acceleration Registers */
 #define LSM303AGR_WHO_AM_I_ADDR_A           0x0F  /* device identification register : Default is 0x33*/
@@ -77,7 +78,7 @@
 #define LSM303AGR_OFFSET_Z_REG_L_M			0x49 /* Z axis compensation */
 #define LSM303AGR_OFFSET_Z_REG_H_M			0x50 /* Z axis compensation */
 
-#define LSM303AGR_WHO_AM_I_ADDR_M           0x0F  /* device identification register : Default is 0x40*/
+#define LSM303AGR_WHO_AM_I_ADDR_M           0x4F  /* device identification register : Default is 0x40*/
 
 /* Magneto configuration registers */
 
@@ -125,7 +126,7 @@
  #define LSM303AGR_X_ENABLE_A				((uint8_t)0x01)
  #define LSM303AGR_Y_ENABLE_A				((uint8_t)0x02)
  #define LSM303AGR_Z_ENABLE_A				((uint8_t)0x04)
- #define LSM303AGR_XYZ_ENABLE_A				(LSM303AGR_X_ENABLE|LSM303AGR_Y_ENABLE|LSM303AGR_Z_ENABLE)
+ #define LSM303AGR_XYZ_ENABLE_A				(LSM303AGR_X_ENABLE_A|LSM303AGR_Y_ENABLE_A|LSM303AGR_Z_ENABLE_A)
  /**
    * @}
    */
@@ -345,7 +346,8 @@
    * @}
    */
 
- #define LSM303AGR_REG1_A_DFLT_A			   (LSM303AGR_POWERMODE_LP5376_N1344HZ|LSM303AGR_NORMAL_MODE|LSM303AGR_XYZ_ENABLE)
+ #define LSM303AGR_REG1_A_DFLT_A				((uint8_t)LSM303AGR_ODR_1344_HZ_A | LSM303AGR_NORMAL_MODE_A | LSM303AGR_XYZ_ENABLE_A)
+ #define LSM303AGR_REG4_A_DFLT_A				((uint8_t)LSM303AGR_BlockUpdate_Continous | LSM303AGR_BLE_LSB | LSM303AGR_FULLSCALE_16G | LSM303AGR_HR_ENABLE_A)
 
  /* Magnetometer Values */
  #define I_AM_LMS303AGR_M					((uint8_t)0x40)
@@ -406,7 +408,7 @@
  /**
    * @}
    */
-	#define LSM303AGR_REG_A_DFLT_M						(LSM303AGR_TEMP_COMPENSATION_ENABLE_M|LSM303AGR_BOOT_NORMALMODE_M|LSM303AGR_NOT_RST_CFG_M|LSM303AGR_LOWPOWER_MODE_A|LSM303AGR_ODR_10_HZ_M|LSM303AGR_BlockUpdate_Continous_M)
+
 
 	#define LSM303AGR_Offset_Cancelation_Disable_OS_M	((uint8_t)0x00) /** offset cancellation in single measurement mode disabled */
 	#define LSM303AGR_Offset_Cancelation_Enable_OS_M	((uint8_t)0x10) /** offset cancellation in single measurement mode enabled */
@@ -417,15 +419,21 @@
 	#define LSM303AGR_Offset_Cancelation_Enable_M		((uint8_t)0x02) /** offset cancellation enabled */
 	#define LSM303AGR_LPF_Disable_M						((uint8_t)0x00) /** digital filter disabled */
 	#define LSM303AGR_LPF_Enable_M						((uint8_t)0x01) /** digital filter enabled */
+
+	#define LSM303AGR_REG_A_DFLT_M						((uint8_t)LSM303AGR_TEMP_COMPENSATION_ENABLE_M | LSM303AGR_BOOT_NORMALMODE_M|LSM303AGR_NOT_RST_CFG_M|LSM303AGR_NORMAL_MODE_M|LSM303AGR_ODR_100_HZ_M|LSM303AGR_BlockUpdate_Continous_M)
+	#define	LSM303AGR_REG_B_DFLT_M						((uint8_t)LSM303AGR_LPF_Disable_M | LSM303AGR_Offset_Cancelation_Disable_OS_M | LSQM303AGR_FREQ_SET_PULSE_CYCLE_M | LSM303AGR_Offset_Cancelation_Disable_M)
  /** @defgroup LSM303AGR_Exported_Functions
    * @{
    */
  /* Accelero functions */
- void    LSM303AGR_AccReadXYZ(int16_t* pData);
-
+ uint8_t	LSM303AGR_AccReadXYZ(int16_t* pData);
+ uint8_t	LSM303AGR_ConfigureAcc(ACCELERO_InitTypeDef* initStruct);
+ uint8_t	LSM303AGR_AccInit(void);
 
  /* Magneto functions*/
- void    LSM303AGR_MagReadXYZ(int16_t* pData);
+ uint8_t LSM303AGR_MagReadXYZ(int16_t* pData);
+ uint8_t	LS303AGR_MagInit(void);
+ uint8_t LSM303AGR_MagReadID(uint8_t *pData);
  /**
    * @}
    */
