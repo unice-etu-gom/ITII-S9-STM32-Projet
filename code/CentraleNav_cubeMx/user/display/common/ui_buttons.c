@@ -8,6 +8,8 @@
 /* Project includes */
 #include "../images/ImageArrowNext.h"
 #include "../images/ImageArrowPrevious.h"
+#include "../images/ImageLess.h"
+#include "../images/ImageMore.h"
 
 
 /* ########################################################################## */
@@ -40,6 +42,36 @@ TsUiButton   g_buttonArrowPrevious  =
     .colorFG    = LCD_COLOR_RED,
 
     .imagePtr   = &ImageArrowPrevious
+};
+
+
+TsUiButton   g_buttonLess   =
+{
+    .origX  = 0U,
+    .origY  = 90U,
+
+    .sizeX  = 60U,
+    .sizeY  = 60U,
+
+    .colorBG    = LCD_COLOR_BLACK,
+    .colorFG    = LCD_COLOR_BLACK,
+
+    .imagePtr   = &ImageLess
+};
+
+
+TsUiButton   g_buttonMore   =
+{
+    .origX  = 180U,
+    .origY  = 90U,
+
+    .sizeX  = 60U,
+    .sizeY  = 60U,
+
+    .colorBG    = LCD_COLOR_BLACK,
+    .colorFG    = LCD_COLOR_BLACK,
+
+    .imagePtr   = &ImageMore
 };
 
 /* ########################################################################## */
