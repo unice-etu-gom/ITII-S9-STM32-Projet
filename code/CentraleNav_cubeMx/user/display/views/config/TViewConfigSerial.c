@@ -4,6 +4,7 @@
 /* System includes */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /* Libraries includes */
 #include "stm32412g_discovery_lcd.h"
@@ -14,6 +15,8 @@
 
 #include "display/common/ui_button.h"
 #include "display/common/ui_buttons.h"
+#include "display/common/ui_text.h"
+#include "display/common/ui_text_labels.h"
 #include "display/display_management.h"
 
 #include "../TViewMagnetometer.h"
@@ -22,8 +25,10 @@
 /* ########################################################################## */
 /* ########################################################################## */
 
-static TsUiButton   s_textPeriodMAG;
-static TsUiButton   s_title;
+#define C_TEXTBUFFER_SIZE   (8)
+
+static TsUiText     s_textParamValue;
+static char         s_textParamValueBuffer[C_TEXTBUFFER_SIZE];
 
 /* ########################################################################## */
 /* ########################################################################## */
@@ -36,22 +41,27 @@ void    viewConfigSerial_PeriodicUiUpdate(void);
 void    viewConfigSerial_draw(void)
 {
     /* Display view title */
-    BSP_LCD_SetFont(&Font24);
-    BSP_LCD_SetBackColor(LCD_COLOR_ORANGE);
-    BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-    BSP_LCD_DisplayStringAt(
-                0,
-                LINE(0),
-                (uint8_t*)"Serial Config",
-                CENTER_MODE );
+
+    snprintf(
+            s_textParamValueBuffer,
+            C_TEXTBUFFER_SIZE,
+            "%.1f s",
+            g_serial_txPeriod_MAG_100ms / 10.0 );
+
+
+    ui_text_draw(&g_textLabel_view_title);
+    ui_text_draw(&g_textLabel_viewConfig_section);
+    ui_text_draw(&g_textLabel_viewConfig_param);
+    ui_text_draw(&s_textParamValue);
+
 
 
     /* Draw buttons */
     ui_button_draw(&g_buttonArrowPrevious);
     ui_button_draw(&g_buttonArrowNext);
 
-    ui_button_draw(&s_title);
-    ui_button_draw(&s_textPeriodMAG);
+    ui_button_draw(&g_buttonLess);
+    ui_button_draw(&g_buttonMore);
 
 
     /* Update display with current values */
@@ -73,10 +83,16 @@ void    viewConfigSerial_Event_touchscreen(const TS_StateTypeDef* pTSState)
     }
 
 
-//    else if( ui_button_touchIsIn(&s_buttonConfigSerial, pTSState) )
-//    {
-//        display_setView(&c_view_configSerial);
-//    }
+    else if( ui_button_touchIsIn(&g_buttonLess, pTSState) )
+    {
+        serial_emitPeriod_MAG_dec();
+        display_repaint();
+    }
+    else if( ui_button_touchIsIn(&g_buttonMore, pTSState) )
+    {
+        serial_emitPeriod_MAG_inc();
+        display_repaint();
+    }
 
 
     else
@@ -93,41 +109,10 @@ void    viewConfigSerial_Event_touchscreen(const TS_StateTypeDef* pTSState)
 
 void    viewConfigSerial_handlerOnEnter(void)
 {
+    const uint16_t  c_controls_vpos = 105U;
+
+
     BSP_LCD_Clear(LCD_COLOR_BLACK);
-    BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
-    BSP_LCD_SetTextColor(LCD_COLOR_ORANGE);
-
-
-    ui_button_init(&s_title);
-    ui_button_setColorBackground(
-                &s_title,
-                LCD_COLOR_BLACK );
-    ui_button_setColorForeground(
-                &s_title,
-                LCD_COLOR_ORANGE );
-    ui_button_setOrig(
-                &s_title,
-                60U,
-                45U );
-    s_title.sizeX   = 120U;
-    s_title.sizeY   = 60U;
-    s_title.text    = "MAG Frame emit";
-
-
-    ui_button_init(&s_textPeriodMAG);
-    ui_button_setColorBackground(
-                &s_textPeriodMAG,
-                LCD_COLOR_BLACK );
-    ui_button_setColorForeground(
-                &s_textPeriodMAG,
-                LCD_COLOR_WHITE );
-    ui_button_setOrig(
-                &s_textPeriodMAG,
-                60U,
-                105U );
-    s_textPeriodMAG.sizeX   = 120U;
-    s_textPeriodMAG.sizeY   = 60U;
-    s_textPeriodMAG.text    = "DD.D s";
 
 
     ui_button_setOrig(
@@ -139,6 +124,38 @@ void    viewConfigSerial_handlerOnEnter(void)
                 &g_buttonArrowNext,
                 240 - g_buttonArrowNext.sizeX,
                 240 - g_buttonArrowNext.sizeY );
+
+
+    ui_button_setOrig(
+                &g_buttonLess,
+                0U,
+                c_controls_vpos );
+
+    ui_button_setOrig(
+                &g_buttonMore,
+                BSP_LCD_GetXSize() - g_buttonMore.sizeX,
+                c_controls_vpos );
+
+
+
+    /* -------------------------------------------------------------------------
+     *  Configure text structures
+     */
+    ui_text_set(&g_textLabel_view_title, "Serial Config");
+
+    ui_text_set(&g_textLabel_viewConfig_param, "MAG frame");
+
+    ui_text_set(&g_textLabel_viewConfig_section, "Emit. period");
+
+
+
+    ui_text_init(&s_textParamValue);
+    ui_text_set(&s_textParamValue, s_textParamValueBuffer);
+    s_textParamValue.Y          = c_controls_vpos
+                                + (30)
+                                - (s_textParamValue.font->Height/2);
+    s_textParamValue.colorBG    = LCD_COLOR_BLACK;
+    s_textParamValue.colorFG    = LCD_COLOR_WHITE;
 }
 
 /* ########################################################################## */
