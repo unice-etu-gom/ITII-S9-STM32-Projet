@@ -14,6 +14,7 @@
 
 #include "../common/ui_button.h"
 #include "../common/ui_buttons.h"
+#include "../common/ui_text_labels.h"
 
 #include "TViewConfig.h"
 #include "TViewMagnetometer.h"
@@ -27,7 +28,9 @@ static int s_main_value	= 0;
 
 void    viewMain_draw(void)
 {
-    BSP_LCD_DisplayStringAtLine(0, (uint8_t*)__FUNCTION__);
+    /* Display view title */
+    ui_text_draw(&g_textLabel_view_title);
+
 
     char	lBuffer[10]= {0};
     itoa(s_main_value++, lBuffer, 10);
@@ -82,8 +85,10 @@ void    viewMain_Event_touchscreen(const TS_StateTypeDef* pTSState)
 void    viewMain_handlerOnEnter(void)
 {
     BSP_LCD_Clear(LCD_COLOR_BLACK);
-    BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
-    BSP_LCD_SetTextColor(LCD_COLOR_ORANGE);
+
+
+    ui_text_set(&g_textLabel_view_title,
+                "Main view");
 
 
     ui_button_setOrig(
