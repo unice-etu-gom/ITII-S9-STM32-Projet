@@ -15,6 +15,7 @@
 #include "../common/ui_button.h"
 #include "../common/ui_buttons.h"
 
+#include "TViewConfig.h"
 #include "TViewMagnetometer.h"
 
 
@@ -65,7 +66,7 @@ void    viewMain_Event_touchscreen(const TS_StateTypeDef* pTSState)
     }
     else if( ui_button_touchIsIn(&g_buttonArrowPrevious, pTSState) )
     {
-        display_setView(&c_view_magnetometer);
+        display_setView(&c_view_config);
     }
     else
     {
