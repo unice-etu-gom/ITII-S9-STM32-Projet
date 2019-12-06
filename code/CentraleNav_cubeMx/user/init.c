@@ -15,6 +15,18 @@
 /* ########################################################################## */
 /* ########################################################################## */
 
+/* @see https://fr.wikipedia.org/wiki/Code_Morse_international § Représentation
+ *      et cadence. */
+#define MORSE_DELAY_ELT     (250)
+
+#define MORSE_DELAY_SHORT   (MORSE_DELAY_ELT)
+#define MORSE_DELAY_LONG    (3*MORSE_DELAY_ELT)
+
+#define MORSE_DELAY_SEPSYM  (MORSE_DELAY_ELT)
+#define MORSE_DELAY_SEPLTR  (MORSE_DELAY_LONG)
+#define MORSE_DELAY_SEPWRD  (7*MORSE_DELAY_SHORT)
+
+
 void    init_LED(void);
 void    init_LCD(void);
 
@@ -92,25 +104,25 @@ void    init_LCD(void)
         {
             /* T */
             BSP_LED_On(LED_RED);
-            HAL_Delay(500);
+            HAL_Delay(MORSE_DELAY_LONG);
             BSP_LED_Off(LED_RED);
 
-            HAL_Delay(500);
+            HAL_Delay(MORSE_DELAY_SEPLTR);
 
             /* S */
             BSP_LED_On(LED_RED);
-            HAL_Delay(250);
+            HAL_Delay(MORSE_DELAY_SHORT);
             BSP_LED_Off(LED_RED);
-            HAL_Delay(250);
+            HAL_Delay(MORSE_DELAY_SEPSYM);
             BSP_LED_On(LED_RED);
-            HAL_Delay(250);
+            HAL_Delay(MORSE_DELAY_SHORT);
             BSP_LED_Off(LED_RED);
-            HAL_Delay(250);
+            HAL_Delay(MORSE_DELAY_SEPSYM);
             BSP_LED_On(LED_RED);
-            HAL_Delay(250);
+            HAL_Delay(MORSE_DELAY_SHORT);
             BSP_LED_Off(LED_RED);
 
-            HAL_Delay(1000);
+            HAL_Delay(MORSE_DELAY_SEPWRD);
         }
     }
 }
