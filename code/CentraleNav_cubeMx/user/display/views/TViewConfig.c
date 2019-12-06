@@ -109,7 +109,7 @@ void    viewConfig_handlerOnEnter(void)
                 0U,
                 45U );
     s_buttonConfigSerial.sizeX  = 120U;
-    s_buttonConfigSerial.text   = "Serial";
+    s_buttonConfigSerial.text   = (uint8_t*)"Serial";
 
 
     ui_button_setOrig(
