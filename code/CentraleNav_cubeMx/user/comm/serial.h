@@ -26,6 +26,10 @@ void    serial_periodicAction100ms(void);
 
 void    serial_transmit(void);
 
+
+void    serial_emitPeriod_MAG_dec(void);
+void    serial_emitPeriod_MAG_inc(void);
+
 /* ########################################################################## */
 /* ########################################################################## */
 

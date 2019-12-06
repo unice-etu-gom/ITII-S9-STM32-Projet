@@ -1,5 +1,5 @@
-#ifndef UI_BUTTONS_H
-#define UI_BUTTONS_H
+#ifndef UI_TEXT_LABELS_H
+#define UI_TEXT_LABELS_H
 
 /* Inherited classes */
 
@@ -8,21 +8,18 @@
 /* Libraries includes */
 
 /* Project includes */
-#include "ui_button.h"
-
+#include "ui_text.h"
 
 
 /* ########################################################################## */
 /* ########################################################################## */
 
-extern TsUiButton   g_buttonArrowNext;
-extern TsUiButton   g_buttonArrowPrevious;
-extern TsUiButton   g_buttonBack;
+extern TsUiText g_textLabel_view_title;
 
-extern TsUiButton   g_buttonLess;
-extern TsUiButton   g_buttonMore;
+extern TsUiText g_textLabel_viewConfig_section;
+extern TsUiText g_textLabel_viewConfig_param;
 
 /* ########################################################################## */
 /* ########################################################################## */
 
-#endif  /*< UI_BUTTONS_H */
+#endif  /*< UI_TEXT_LABELS_H */

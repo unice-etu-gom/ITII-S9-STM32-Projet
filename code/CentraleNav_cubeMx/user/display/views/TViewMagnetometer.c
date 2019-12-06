@@ -16,6 +16,7 @@
 
 #include "../common/ui_button.h"
 #include "../common/ui_buttons.h"
+#include "../common/ui_text_labels.h"
 
 #include "TViewConfig.h"
 #include "TViewMain.h"
@@ -31,10 +32,7 @@ void    viewMagnetometer_PeriodicUiUpdate(void);
 void    viewMagnetometer_draw(void)
 {
     /* Display view title */
-    BSP_LCD_SetFont(&Font24);
-    BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
-    BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-    BSP_LCD_DisplayStringAtLine(0, (uint8_t*)" Magnetometer ");
+    ui_text_draw(&g_textLabel_view_title);
 
 
     /* Draw buttons */
@@ -88,6 +86,11 @@ void    viewMagnetometer_Event_touchscreen(const TS_StateTypeDef* pTSState)
 void    viewMagnetometer_handlerOnEnter(void)
 {
     BSP_LCD_Clear(LCD_COLOR_BLACK);
+
+    ui_text_set(&g_textLabel_view_title,
+                "Magnetometer");
+
+
     BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
     BSP_LCD_SetTextColor(LCD_COLOR_ORANGE);
 

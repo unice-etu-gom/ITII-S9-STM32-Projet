@@ -16,6 +16,7 @@
 
 #include "../common/ui_button.h"
 #include "../common/ui_buttons.h"
+#include "../common/ui_text_labels.h"
 
 #include "TViewMagnetometer.h"
 #include "TViewMain.h"
@@ -37,14 +38,7 @@ void    viewConfig_PeriodicUiUpdate(void);
 void    viewConfig_draw(void)
 {
     /* Display view title */
-    BSP_LCD_SetFont(&Font24);
-    BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
-    BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-    BSP_LCD_DisplayStringAt(
-                0,
-                LINE(0),
-                (uint8_t*)"Config",
-                CENTER_MODE );
+    ui_text_draw(&g_textLabel_view_title);
 
 
     /* Draw buttons */
@@ -93,6 +87,12 @@ void    viewConfig_Event_touchscreen(const TS_StateTypeDef* pTSState)
 void    viewConfig_handlerOnEnter(void)
 {
     BSP_LCD_Clear(LCD_COLOR_BLACK);
+
+
+    ui_text_set(&g_textLabel_view_title,
+                "Config");
+
+
     BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
     BSP_LCD_SetTextColor(LCD_COLOR_ORANGE);
 
@@ -109,7 +109,7 @@ void    viewConfig_handlerOnEnter(void)
                 0U,
                 45U );
     s_buttonConfigSerial.sizeX  = 120U;
-    s_buttonConfigSerial.text   = "Serial";
+    s_buttonConfigSerial.text   = (uint8_t*)"Serial";
 
 
     ui_button_setOrig(
@@ -135,9 +135,6 @@ void    viewConfig_handlerOnExit(void)
 
 void    viewConfig_PeriodicUiUpdate(void)
 {
-    BSP_LCD_SetFont(&Font16);
-    BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
-    BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
 }
 
 /* ########################################################################## */
