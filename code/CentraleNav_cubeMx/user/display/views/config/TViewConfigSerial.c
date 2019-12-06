@@ -19,6 +19,7 @@
 #include "display/common/ui_text_labels.h"
 #include "display/display_management.h"
 
+#include "../TViewConfig.h"
 #include "../TViewMagnetometer.h"
 #include "../TViewMain.h"
 
@@ -59,6 +60,7 @@ void    viewConfigSerial_draw(void)
     /* Draw buttons */
     ui_button_draw(&g_buttonArrowPrevious);
     ui_button_draw(&g_buttonArrowNext);
+    ui_button_draw(&g_buttonBack);
 
     ui_button_draw(&g_buttonLess);
     ui_button_draw(&g_buttonMore);
@@ -80,6 +82,10 @@ void    viewConfigSerial_Event_touchscreen(const TS_StateTypeDef* pTSState)
     else if( ui_button_touchIsIn(&g_buttonArrowPrevious, pTSState) )
     {
         display_setView(&c_view_magnetometer);
+    }
+    else if( ui_button_touchIsIn(&g_buttonBack, pTSState) )
+    {
+        display_setView(&c_view_config);
     }
 
 
@@ -119,6 +125,11 @@ void    viewConfigSerial_handlerOnEnter(void)
                 &g_buttonArrowPrevious,
                 0,
                 240 - g_buttonArrowPrevious.sizeY );
+
+    ui_button_setOrig(
+                &g_buttonBack,
+                (BSP_LCD_GetXSize()/2) - (g_buttonBack.sizeX/2),
+                BSP_LCD_GetYSize() - g_buttonBack.sizeY );
 
     ui_button_setOrig(
                 &g_buttonArrowNext,

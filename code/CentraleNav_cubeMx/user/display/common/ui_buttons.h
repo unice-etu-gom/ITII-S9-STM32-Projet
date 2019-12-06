@@ -17,6 +17,7 @@
 
 extern TsUiButton   g_buttonArrowNext;
 extern TsUiButton   g_buttonArrowPrevious;
+extern TsUiButton   g_buttonBack;
 
 extern TsUiButton   g_buttonLess;
 extern TsUiButton   g_buttonMore;
