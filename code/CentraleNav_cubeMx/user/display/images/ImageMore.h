@@ -1,3 +1,6 @@
+#ifndef IMAGEMORE_H
+#define IMAGEMORE_H
+
 #include "TsGimpImage.h"
 
 
@@ -265,3 +268,4 @@ static const TsGimpImage    ImageMore = {
   "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000",
 };
 
+#endif  /*< IMAGEMORE_H */

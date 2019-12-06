@@ -1,3 +1,6 @@
+#ifndef IMAGELESS_H
+#define IMAGELESS_H
+
 #include "TsGimpImage.h"
 
 
@@ -260,3 +263,4 @@ static const TsGimpImage    ImageLess = {
   "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000",
 };
 
+#endif  /*< IMAGELESS_H */

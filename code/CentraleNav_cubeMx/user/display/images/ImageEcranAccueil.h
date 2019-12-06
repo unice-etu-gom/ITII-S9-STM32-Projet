@@ -1,9 +1,12 @@
+#ifndef IMAGEECRANACCUEIL_H
+#define IMAGEECRANACCUEIL_H
+
 #include "TsGimpImage.h"
 
 
 /* GIMP RGBA C-Source image dump (ecran_accueil.c) */
 
-static const TsGimpImage ImageEcranAccueil = {
+static const TsGimpImage    ImageEcranAccueil = {
   240, 240, 2,
   "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
   "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
@@ -6065,3 +6068,4 @@ static const TsGimpImage ImageEcranAccueil = {
   "\377\377\377\377\377\377",
 };
 
+#endif  /*< IMAGEECRANACCUEIL_H */

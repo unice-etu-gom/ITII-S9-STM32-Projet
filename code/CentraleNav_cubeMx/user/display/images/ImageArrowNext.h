@@ -1,3 +1,6 @@
+#ifndef IMAGEARROWNEXT_H
+#define IMAGEARROWNEXT_H
+
 #include "TsGimpImage.h"
 
 
@@ -284,3 +287,4 @@ static const TsGimpImage ImageArrowNext = {
   "{\357{\357{\357{\357{\357{\357{",
 };
 
+#endif  /*< IMAGEARROWNEXT_H */

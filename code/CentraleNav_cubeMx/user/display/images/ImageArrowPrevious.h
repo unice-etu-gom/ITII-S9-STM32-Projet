@@ -1,9 +1,12 @@
+#ifndef IMAGEARROWPREVIOUS_H
+#define IMAGEARROWPREVIOUS_H
+
 #include "TsGimpImage.h"
 
 
 /* GIMP RGBA C-Source image dump (arrow_previous.c) */
 
-static const TsGimpImage ImageArrowPrevious = {
+static const TsGimpImage    ImageArrowPrevious = {
   60, 60, 2,
   "\357{\357{\357{\357{\357{\357{\357{\357{\357{\357{\357{\357{\357{\357{\357"
   "{\357{\357{\357{\357{\357{\357{\357{\357{\357{\357{\357{\357{\357{\357{\357"
@@ -284,3 +287,4 @@ static const TsGimpImage ImageArrowPrevious = {
   "{\357{\357{\357{\357{\357{\357{\357{\357{\357{\357{\357{",
 };
 
+#endif  /*< IMAGEARROWPREVIOUS_H */
