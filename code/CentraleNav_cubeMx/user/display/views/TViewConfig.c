@@ -21,11 +21,13 @@
 #include "TViewMagnetometer.h"
 #include "TViewMain.h"
 #include "config/TViewConfigSerial.h"
+#include "config/mag/TViewConfigMagnetoCalibration.h"
 
 /* ########################################################################## */
 /* ########################################################################## */
 
 static TsUiButton   s_buttonConfigSerial;
+static TsUiButton   s_buttonConfigMagneto;
 
 /* ########################################################################## */
 /* ########################################################################## */
@@ -45,6 +47,10 @@ void    viewConfig_draw(void)
     ui_button_draw(&g_buttonArrowPrevious);
     ui_button_draw(&g_buttonArrowNext);
     ui_button_draw(&s_buttonConfigSerial);
+    ui_button_draw(&s_buttonConfigMagneto);
+
+    BSP_LCD_DrawLine(120U, 30U,
+                     120U, 180U );
 
 
     /* Update display with current values */
@@ -69,6 +75,10 @@ void    viewConfig_Event_touchscreen(const TS_StateTypeDef* pTSState)
     else if( ui_button_touchIsIn(&s_buttonConfigSerial, pTSState) )
     {
         display_setView(&c_view_configSerial);
+    }
+    else if( ui_button_touchIsIn(&s_buttonConfigMagneto, pTSState) )
+    {
+        display_setView(&c_view_config_magnetoCalib);
     }
 
 
@@ -110,6 +120,21 @@ void    viewConfig_handlerOnEnter(void)
                 45U );
     s_buttonConfigSerial.sizeX  = 120U;
     s_buttonConfigSerial.text   = (uint8_t*)"Serial";
+
+
+    ui_button_init(&s_buttonConfigMagneto);
+    ui_button_setColorBackground(
+                &s_buttonConfigMagneto,
+                LCD_COLOR_ORANGE );
+    ui_button_setColorForeground(
+                &s_buttonConfigMagneto,
+                LCD_COLOR_BLACK );
+    ui_button_setOrig(
+                &s_buttonConfigMagneto,
+                120U,
+                45U );
+    s_buttonConfigMagneto.sizeX  = 120U;
+    s_buttonConfigMagneto.text   = (uint8_t*)"MAG";
 
 
     ui_button_setOrig(
