@@ -18,7 +18,7 @@ extern volatile uint8_t g_flag_delayedActions_100ms;
 extern volatile uint8_t g_flag_delayedActions_1000ms;
 
 
-typedef struct _S3DimentionsInt
+typedef struct __attribute__((__packed__))  _S3DimentionsInt
 {
     int16_t X;
     int16_t Y;

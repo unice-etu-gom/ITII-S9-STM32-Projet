@@ -8,9 +8,11 @@
 #include "tim.h"
 
 #include "comm/serial.h"
+#include "data/parameters.h"
 #include "display/display_management.h"
 #include "display/views/TViewHello.h"
 #include "display/views/TViewMain.h"
+#include "drivers/LSM303AGR/lsm303agr.h"
 
 /* ########################################################################## */
 /* ########################################################################## */
@@ -29,6 +31,7 @@
 
 void    init_LED(void);
 void    init_LCD(void);
+void    init_MEMS(void);
 
 void    start(void);
 
@@ -40,10 +43,20 @@ void    init(void)
     /*
      *  Initialize modules
      */
+    /* LEDS must be the first module to be initialized as it is used to display
+     * error codes. */
     init_LED();
-    init_LCD();
+
+    /* Now we initialize application parameters */
+    parameters_init();
+
 
     serial_init();
+
+    init_LCD();
+
+    init_MEMS();
+
 
 
     /*
@@ -108,6 +121,80 @@ void    init_LCD(void)
             BSP_LED_Off(LED_RED);
 
             HAL_Delay(MORSE_DELAY_SEPLTR);
+
+            /* S */
+            BSP_LED_On(LED_RED);
+            HAL_Delay(MORSE_DELAY_SHORT);
+            BSP_LED_Off(LED_RED);
+            HAL_Delay(MORSE_DELAY_SEPSYM);
+            BSP_LED_On(LED_RED);
+            HAL_Delay(MORSE_DELAY_SHORT);
+            BSP_LED_Off(LED_RED);
+            HAL_Delay(MORSE_DELAY_SEPSYM);
+            BSP_LED_On(LED_RED);
+            HAL_Delay(MORSE_DELAY_SHORT);
+            BSP_LED_Off(LED_RED);
+
+            HAL_Delay(MORSE_DELAY_SEPWRD);
+        }
+    }
+}
+
+/* ########################################################################## */
+/* ########################################################################## */
+
+void    init_MEMS(void)
+{
+    uint8_t retval  = 0U;
+
+
+    if( LS303AGR_MagInit() != HAL_OK )
+    {
+        retval  = 1;
+    }
+
+
+
+    /* -------------------------------------------------------------------------
+     *  Prevent init to continue
+     */
+    if( retval != 0U )
+    {
+        while(1)
+        {
+            /* M */
+            BSP_LED_On(LED_RED);
+            HAL_Delay(MORSE_DELAY_LONG);
+            BSP_LED_Off(LED_RED);
+            HAL_Delay(MORSE_DELAY_SEPSYM);
+            BSP_LED_On(LED_RED);
+            HAL_Delay(MORSE_DELAY_LONG);
+            BSP_LED_Off(LED_RED);
+            HAL_Delay(MORSE_DELAY_SEPSYM);
+
+            HAL_Delay(MORSE_DELAY_SEPLTR);
+
+
+            /* E */
+            BSP_LED_On(LED_RED);
+            HAL_Delay(MORSE_DELAY_SHORT);
+            BSP_LED_Off(LED_RED);
+
+            HAL_Delay(MORSE_DELAY_SEPWRD);
+
+
+            /* M */
+            BSP_LED_On(LED_RED);
+            HAL_Delay(MORSE_DELAY_LONG);
+            BSP_LED_Off(LED_RED);
+            HAL_Delay(MORSE_DELAY_SEPSYM);
+            BSP_LED_On(LED_RED);
+            HAL_Delay(MORSE_DELAY_LONG);
+            BSP_LED_Off(LED_RED);
+            HAL_Delay(MORSE_DELAY_SEPSYM);
+
+            HAL_Delay(MORSE_DELAY_SEPLTR);
+
 
             /* S */
             BSP_LED_On(LED_RED);
