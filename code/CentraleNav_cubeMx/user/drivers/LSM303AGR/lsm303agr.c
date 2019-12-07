@@ -51,7 +51,7 @@
  uint8_t	LSM303AGR_AccReadXYZ(int16_t* pData)
  {
 
-	 if(HAL_I2C_Mem_Read(&hi2c2,LSM303AGR_ACC_I2C_ADDRESS_R,LSM303AGR_OUT_X_L_A,1,(uint8_t*)&pData[0],6,10000)!= HAL_OK)
+	 if(HAL_I2C_Mem_Read(&hi2c2,LSM303AGR_ACC_I2C_ADDRESS_R,LSM303AGR_OUT_X_L_A,1,(uint8_t*)pData,6,10000)!= HAL_OK)
 	 {
 		 return HAL_ERROR;
 	 }
@@ -81,7 +81,7 @@
  uint8_t LSM303AGR_MagReadXYZ(int16_t* pData)
  {
 
-	 if(HAL_I2C_Mem_Read(&hi2c2,LSM303AGR_MAG_I2C_ADDRESS_R,LSM303AGR_OUT_X_L_M,1,(uint8_t*)&pData[0],6,10000)!= HAL_OK)
+	 if(HAL_I2C_Mem_Read(&hi2c2,LSM303AGR_MAG_I2C_ADDRESS_R,LSM303AGR_OUT_X_L_M,1,(uint8_t*)pData,6,10000)!= HAL_OK)
 	 {
 		 return HAL_ERROR;
 	 }

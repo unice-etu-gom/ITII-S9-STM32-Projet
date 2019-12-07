@@ -45,7 +45,7 @@
    */
  uint8_t	LSM6DSL_XlRead_XYZ(int16_t *pData)
  {
-	 if(HAL_I2C_Mem_Read(&hi2c2,LSM6DSL_ACC_I2C_ADDRESS_R,LSM6DSL_REG_OUT_XL_X,1,(uint8_t*)&pData[0],6,10000)!= HAL_OK)
+	 if(HAL_I2C_Mem_Read(&hi2c2,LSM6DSL_ACC_I2C_ADDRESS_R,LSM6DSL_REG_OUT_XL_X,1,(uint8_t*)pData,6,10000)!= HAL_OK)
 	 	 return HAL_ERROR;
 
 	 return HAL_OK;
@@ -60,7 +60,7 @@
     */
  uint8_t	LSM6DSL_Gyro_Read_XYZ(int16_t *pData)
  {
-	 if(HAL_I2C_Mem_Read(&hi2c2,LSM6DSL_ACC_I2C_ADDRESS_R,LSM6DSL_REG_OUT_GYRO_X,1,(uint8_t*)&pData[0],6,10000)!= HAL_OK)
+	 if(HAL_I2C_Mem_Read(&hi2c2,LSM6DSL_ACC_I2C_ADDRESS_R,LSM6DSL_REG_OUT_GYRO_X,1,(uint8_t*)pData,6,10000)!= HAL_OK)
 	 	 return HAL_ERROR;
 
 	 return HAL_OK;
@@ -72,8 +72,11 @@
     */
  uint8_t	LSM6DSL_Read_TEMP(int16_t *pData)
  {
-	 if(HAL_I2C_Mem_Read(&hi2c2,LSM6DSL_ACC_I2C_ADDRESS_R,LSM6DSL_REG_TEMP,1,(uint8_t*)&pData[0],2,10000)!= HAL_OK)
+	 if(HAL_I2C_Mem_Read(&hi2c2,LSM6DSL_ACC_I2C_ADDRESS_R,LSM6DSL_REG_TEMP,1,(uint8_t*)pData,2,10000)!= HAL_OK)
 	 	 return HAL_ERROR;
+
+	 *pData /= 256;
+	 *pData += 25;
 
 	 return HAL_OK;
  }
