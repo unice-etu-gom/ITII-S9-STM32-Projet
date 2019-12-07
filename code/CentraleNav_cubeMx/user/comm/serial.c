@@ -96,7 +96,7 @@ void    serial_transmit(void)
 
 void    transmit_ACC(void)
 {
-    printf("$XXMACC,%+06d,%+06d,%+06d*\r\n",
+    printf("$XXACC,%+06d,%+06d,%+06d*\r\n",
            g_acceleroValues.X,
            g_acceleroValues.Y,
            g_acceleroValues.Z );
@@ -107,7 +107,7 @@ void    transmit_ACC(void)
 
 void    transmit_GYR(void)
 {
-    printf("$XXMGYR,%+06d,%+06d,%+06d*\r\n",
+    printf("$XXGYR,%+06d,%+06d,%+06d*\r\n",
            g_gyroValues.X,
            g_gyroValues.Y,
            g_gyroValues.Z );
