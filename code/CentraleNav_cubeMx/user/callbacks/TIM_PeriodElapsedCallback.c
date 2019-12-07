@@ -3,6 +3,7 @@
 #include "tim.h"
 #include "../variables_globales.h"
 
+#include "drivers/LSM6DSL/lsm6dsl.h"
 #include "drivers/LSM303AGR/lsm303agr.h"
 
 /* ########################################################################## */
@@ -17,7 +18,19 @@ uint8_t actions_RT_10ms(void)
     lRet    = LSM303AGR_MagReadXYZ( &g_magnetometerValues );
     if(lRet != HAL_OK)
     {
-        retval  = 1;
+        retval++;
+    }
+
+    lRet    = LSM6DSL_XlRead_XYZ( &g_acceleroValues );
+    if(lRet != HAL_OK)
+    {
+        retval++;
+    }
+
+    lRet    = LSM6DSL_Gyro_Read_XYZ( &g_gyroValues );
+    if(lRet != HAL_OK)
+    {
+        retval++;
     }
 
 

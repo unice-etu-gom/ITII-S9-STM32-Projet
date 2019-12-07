@@ -18,7 +18,7 @@
 #include "../common/ui_buttons.h"
 #include "../common/ui_text_labels.h"
 
-#include "TViewMagnetometer.h"
+#include "TViewGyro.h"
 #include "TViewMain.h"
 #include "config/TViewConfigSerial.h"
 #include "config/mag/TViewConfigMagnetoCalibration.h"
@@ -68,7 +68,7 @@ void    viewConfig_Event_touchscreen(const TS_StateTypeDef* pTSState)
     }
     else if( ui_button_touchIsIn(&g_buttonArrowPrevious, pTSState) )
     {
-        display_setView(&c_view_magnetometer);
+        display_setView(&c_view_gyro);
     }
 
 

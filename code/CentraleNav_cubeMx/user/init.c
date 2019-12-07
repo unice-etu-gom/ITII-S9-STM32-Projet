@@ -12,6 +12,7 @@
 #include "display/display_management.h"
 #include "display/views/TViewHello.h"
 #include "display/views/TViewMain.h"
+#include "drivers/LSM6DSL/lsm6dsl.h"
 #include "drivers/LSM303AGR/lsm303agr.h"
 
 /* ########################################################################## */
@@ -150,8 +151,19 @@ void    init_MEMS(void)
 
     if( LS303AGR_MagInit() != HAL_OK )
     {
-        retval  = 1;
+        retval++;
     }
+
+    if( LSM6DSL_XlInit() != HAL_OK )
+    {
+        retval++;
+    }
+
+    if( LSM6DSL_GyroInit() != HAL_OK )
+    {
+        retval++;
+    }
+
 
 
 
