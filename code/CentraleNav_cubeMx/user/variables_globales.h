@@ -26,6 +26,8 @@ typedef struct __attribute__((__packed__))  _S3DimentionsInt
 }   Ts3Dimentions;
 
 
+extern volatile Ts3Dimentions   g_acceleroValues;
+extern volatile Ts3Dimentions   g_gyroValues;
 extern volatile Ts3Dimentions   g_magnetometerValues;
 
 extern volatile double  g_magnetometerAngle;
